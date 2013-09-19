@@ -7,13 +7,13 @@ import java.util.zip.CRC32;
 import net.jpountz.xxhash.XXHash32;
 import net.jpountz.xxhash.XXHashFactory;
 
+import com.google.caliper.Benchmark;
 import com.google.caliper.Param;
-import com.google.caliper.Runner;
-import com.google.caliper.SimpleBenchmark;
+import com.google.caliper.runner.CaliperMain;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
-public class ChecksumBenchmark extends SimpleBenchmark {
+public class ChecksumBenchmark extends Benchmark {
 
   private static final CRC32 crc32 = new CRC32();
   private static final Adler32 adler32 = new Adler32();
@@ -145,7 +145,7 @@ public class ChecksumBenchmark extends SimpleBenchmark {
   }
 
   public static void main(String[] args) {
-    Runner.main(ChecksumBenchmark.class, args);
+    CaliperMain.main(ChecksumBenchmark.class, args);
   }
   
 }
