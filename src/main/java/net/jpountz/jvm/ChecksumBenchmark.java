@@ -24,9 +24,12 @@ public class ChecksumBenchmark extends Benchmark {
   private static final HashFunction md5 = Hashing.md5();
   private static final HashFunction goodFastHash32 = Hashing.goodFastHash(32);
   private static final HashFunction goodFastHash64 = Hashing.goodFastHash(64);
-  private static final XXHash32 xxhashJNI = XXHashFactory.nativeInstance().hash32();
-  private static final XXHash32 xxhashUnsafe = XXHashFactory.unsafeInstance().hash32();
-  private static final XXHash32 xxhashSafe = XXHashFactory.safeInstance().hash32();
+  private static final XXHash32 xxhash32JNI = XXHashFactory.nativeInstance().hash32();
+  private static final XXHash32 xxhash32Unsafe = XXHashFactory.unsafeInstance().hash32();
+  private static final XXHash32 xxhash32Safe = XXHashFactory.safeInstance().hash32();
+  private static final XXHash32 xxhash64JNI = XXHashFactory.nativeInstance().hash32();
+  private static final XXHash32 xxhash64Unsafe = XXHashFactory.unsafeInstance().hash32();
+  private static final XXHash32 xxhash64Safe = XXHashFactory.safeInstance().hash32();
 
   enum Checksum {
     JAVA_ARRAYS_HASHCODE {
@@ -103,17 +106,32 @@ public class ChecksumBenchmark extends Benchmark {
     },
     XXH32_JNI {
       long checksum(byte[] bytes, int size) {
-        return xxhashJNI.hash(bytes, 0, size, 0x9747b28c);
+        return xxhash32JNI.hash(bytes, 0, size, 0x9747b28c);
       }
     },
     XXH32_UNSAFE {
       long checksum(byte[] bytes, int size) {
-        return xxhashUnsafe.hash(bytes, 0, size, 0x9747b28c);
+        return xxhash32Unsafe.hash(bytes, 0, size, 0x9747b28c);
       }
     },
     XXH32_SAFE {
       long checksum(byte[] bytes, int size) {
-        return xxhashSafe.hash(bytes, 0, size, 0x9747b28c);
+        return xxhash32Safe.hash(bytes, 0, size, 0x9747b28c);
+      }
+    },
+    XXH64_JNI {
+      long checksum(byte[] bytes, int size) {
+        return xxhash64JNI.hash(bytes, 0, size, 0x9747b28c);
+      }
+    },
+    XXH64_UNSAFE {
+      long checksum(byte[] bytes, int size) {
+        return xxhash64Unsafe.hash(bytes, 0, size, 0x9747b28c);
+      }
+    },
+    XXH64_SAFE {
+      long checksum(byte[] bytes, int size) {
+        return xxhash64Safe.hash(bytes, 0, size, 0x9747b28c);
       }
     };
     
